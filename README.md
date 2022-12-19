@@ -1,6 +1,6 @@
-# 📺 YOOTUBE: Youtube clone coding project
+# 📺 YOOTUBE
 
-> for learning Web Full Stack Development (JavaScript)
+> Youtube clone coding project for learning Web Full Stack Development (JavaScript)
 
 ## 1. 사용 기술
 

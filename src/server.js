@@ -1,17 +1,32 @@
 import express from 'express';
 const app = express();
 
-// Listen
 const PORT = 4000;
-const handleListening = () => {
-  console.log(`server is listening on port ${PORT}`);
+app.listen(PORT, () => console.log(`server is listening on port ${PORT}`));
+
+const URLLogger = (req, res, next) => {
+  console.log('Path:', req.path);
+  next();
+};
+const timeLogger = (req, res, next) => {
+  const currentTime = new Date(Date.now());
+  console.log('Time:', new Intl.DateTimeFormat('ko-KR').format(currentTime));
+  next();
+};
+const securityLogger = (req, res, next) => {
+  if (req.protocol === 'https') console.log('secure');
+  else console.log('Insecure');
+  next();
+};
+const protector = (req, res, next) => {
+  if (req.path === '/protected') return;
+  next();
 };
 
-app.listen(PORT, handleListening);
+app.use(URLLogger);
+app.use(timeLogger);
+app.use(securityLogger);
+app.use(protector);
 
-// Requests
-const handleHome = (req, res) => {
-  res.send('This is home page');
-  res.end();
-};
-app.get('/', handleHome);
+app.get('/', (req, res) => res.send('<h1>Home</h1>'));
+app.get('/protected', (req, res) => res.send('<h1>Protected</h1>'));

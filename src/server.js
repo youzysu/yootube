@@ -14,19 +14,18 @@ const timeLogger = (req, res, next) => {
   next();
 };
 const securityLogger = (req, res, next) => {
-  if (req.protocol === 'https') console.log('secure');
+  if (req.protocol === 'https') console.log('Secure');
   else console.log('Insecure');
   next();
 };
-const protector = (req, res, next) => {
-  if (req.path === '/protected') return;
+const protectorLogger = (req, res, next) => {
+  if (req.path === '/protected') {
+    return res.send('<h1>This approach is forbidden</h1>');
+  }
   next();
 };
 
-app.use(URLLogger);
-app.use(timeLogger);
-app.use(securityLogger);
-app.use(protector);
+app.use(URLLogger, timeLogger, securityLogger, protectorLogger);
 
 app.get('/', (req, res) => res.send('<h1>Home</h1>'));
 app.get('/protected', (req, res) => res.send('<h1>Protected</h1>'));

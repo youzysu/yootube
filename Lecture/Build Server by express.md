@@ -37,7 +37,8 @@ app.listen(PORT, handleListening);
 
 #### Get
 
-- 콜백 함수를 사용하여 지정된 경로로 HTTP GET 요청을 보낸다.
+- `app.get(path, callback)`
+  - 콜백 함수를 사용하여 지정된 경로로 HTTP GET 요청을 보낸다.
 
 ```
 > http://localhost:4000/
@@ -59,3 +60,7 @@ app.get('/', handleHome);
 ### [Response](https://expressjs.com/en/5x/api.html#res)
 
 - send: HTTP 응답을 보내는 응답 메서드
+
+### morgan
+
+logging middleware
